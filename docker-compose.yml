@@ -15,6 +15,6 @@ services:
             - php
     php:
         build:
-            context: src/docker/php
+            context: docker/php
         volumes:
             - .:/var/app
