@@ -1,6 +1,6 @@
 <?php
 
-namespace CommandLibrary\Command;
+namespace App\Command;
 
 use CommandLibrary\Contract\AbstractCommand;
 
@@ -10,6 +10,11 @@ class CommandTwo extends AbstractCommand
 
     public static function getHelpInfo(): string
     {
-        return 'Help info for command 2';
+        return 'The command will say \'Hello\'';
+    }
+
+    public function execute(): void
+    {
+        echo 'Hello, Lenvendo' . PHP_EOL;
     }
 }

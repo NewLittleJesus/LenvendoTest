@@ -8,5 +8,7 @@ interface CommandServiceInterface
 {
     public function getCommand(string $input): AbstractCommand;
 
-    public function getCommandList(): array;
+    public function getCommandListWithInfo(): array;
+
+    public function setCommandList(array $commandList): void;
 }

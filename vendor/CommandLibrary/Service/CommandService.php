@@ -3,16 +3,17 @@
 namespace CommandLibrary\Service;
 
 use CommandLibrary\Contract\AbstractCommand;
-use CommandLibrary\Contract\CommandListInterface;
 use CommandLibrary\Contract\CommandServiceInterface;
 use CommandLibrary\Exception\CommandNotFoundException;
 
 class CommandService implements CommandServiceInterface
 {
+    public array $commandList = [];
+
     public function getCommand(string $input): AbstractCommand
     {
         $inputCommandName = $this->getCommandName($input);
-        foreach (CommandListInterface::COMMAND_LIST as $commandName => $commandClass) {
+        foreach ($this->commandList as $commandName => $commandClass) {
             if ($inputCommandName !== $commandName) {
                 continue;
             }
@@ -23,10 +24,15 @@ class CommandService implements CommandServiceInterface
         throw new CommandNotFoundException($inputCommandName);
     }
 
-    public function getCommandList(): array
+    public function setCommandList(array $commandList): void
+    {
+        $this->commandList = $commandList;
+    }
+
+    public function getCommandListWithInfo(): array
     {
         $commands = [];
-        foreach (CommandListInterface::COMMAND_LIST as $commandName => $commandClass) {
+        foreach ($this->commandList as $commandName => $commandClass) {
             $commands[$commandName] = $commandClass::getHelpInfo();
         }
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace CommandLibrary\Contract;
+namespace App\Contract;
 
-use CommandLibrary\Command\CommandOne;
-use CommandLibrary\Command\CommandTwo;
+use App\Command\CommandOne;
+use App\Command\CommandTwo;
 
 interface CommandListInterface
 {
