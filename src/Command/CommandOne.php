@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Service\CommandResponseService;
 use CommandLibrary\Contract\AbstractCommand;
+use CommandLibrary\Exception\InvalidParamException;
 
 class CommandOne extends AbstractCommand
 {
@@ -16,19 +17,21 @@ class CommandOne extends AbstractCommand
 
     public function execute(): void
     {
-        $argsAndParams = $this->getArgsAndParams();
-
         $commandString = 'Command Name: ' . self::COMMAND_NAME . PHP_EOL;
 
-        if ($argsAndParams[AbstractCommand::PARAMETERS_KEY] !== []) {
-            $paramsString = $this->getParamsString($argsAndParams[AbstractCommand::PARAMETERS_KEY]);
-            $commandString .= 'Parameters: ' . PHP_EOL . $paramsString;
+        try {
+            if ($this->getParams() !== []) {
+                $paramsString = $this->getParamsString($this->getParams());
+                $commandString .= 'Parameters: ' . PHP_EOL . $paramsString;
+            }
+        } catch (InvalidParamException $exception) {
+            echo $exception->getMessage() . PHP_EOL;
         }
 
-        if ($argsAndParams[AbstractCommand::ARGUMENTS_KEY] !== []) {
-            $argumentsString = $this->getArgumentsString($argsAndParams[AbstractCommand::ARGUMENTS_KEY]);
+        if ($this->getArgs() !== []) {
+            $argumentsString = $this->getArgumentsString($this->getArgs());
             $commandString .= 'Arguments:' . PHP_EOL . $argumentsString . PHP_EOL;
-            if (in_array('help', $argsAndParams[AbstractCommand::ARGUMENTS_KEY])) {
+            if (in_array('help', $this->getArgs())) {
                 $commandString .= 'Info: ' . PHP_EOL . self::getHelpInfo() . PHP_EOL;
             }
         }
