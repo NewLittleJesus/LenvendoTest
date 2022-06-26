@@ -1,3 +1,4 @@
 .idea
 vendor
-!vendor/CommandLibrary/*
+!vendor/CommandLibrary
+
