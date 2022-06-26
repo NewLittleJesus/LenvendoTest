@@ -39,7 +39,8 @@ abstract class AbstractCommand
             $params = explode('=', $match);
 
             if (!isset($params[1])) {
-                throw new InvalidParamException(current($params));
+                echo sprintf('Parameter %1$s is invalid', current($params)) . PHP_EOL;
+                continue;
             }
 
             preg_match(self::FIGURE_BRACKET_PARAMS_PATTERN, $params[1], $valueMatches);

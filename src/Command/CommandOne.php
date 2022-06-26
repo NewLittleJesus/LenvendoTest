@@ -18,14 +18,11 @@ class CommandOne extends AbstractCommand
     public function execute(): void
     {
         $commandString = 'Command Name: ' . self::COMMAND_NAME . PHP_EOL;
+        $paramsArray = $this->getParams();
 
-        try {
-            if ($this->getParams() !== []) {
-                $paramsString = $this->getParamsString($this->getParams());
-                $commandString .= 'Parameters: ' . PHP_EOL . $paramsString;
-            }
-        } catch (InvalidParamException $exception) {
-            echo $exception->getMessage() . PHP_EOL;
+        if ($paramsArray !== []) {
+            $paramsString = $this->getParamsString($paramsArray);
+            $commandString .= 'Parameters: ' . PHP_EOL . $paramsString;
         }
 
         if ($this->getArgs() !== []) {
